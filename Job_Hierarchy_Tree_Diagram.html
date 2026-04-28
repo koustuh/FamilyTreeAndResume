@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Hierarchy Flow Diagram</title>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true });
+    </script>
+</head>
+<body>
+
+<h2>Job Hierarchy Flow Diagram</h2>
+
+<div class="mermaid">
+graph TD;
+    JE["Junior Engineer"] -->|Promoted To| E["Engineer"]
+    E -->|Promoted To| SE["Senior Engineer"]
+    SE -->|Promoted To| TL["Team Lead"]
+    TL -->|Reports To| PM["Project Manager"]
+    PM -->|Reports To| SPM["Senior Project Manager"]
+    SPM -->|Reports To| CTO["CTO"]
+
+    HRM["HR Manager"] --> SPM
+    Tele["Tele Caller"] --> HRM
+</div>
+
+</body>
+</html>

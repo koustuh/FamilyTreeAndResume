@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Free API Examples</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      line-height: 1.6;
+      background-color: #f9f9f9;
+    }
+    section {
+      background: #fff;
+      padding: 15px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    }
+    button {
+      padding: 6px 12px;
+      margin-bottom: 10px;
+      background-color: #007acc;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    pre {
+      background: #eee;
+      padding: 10px;
+      white-space: pre-wrap;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🌐 Free Public API Examples</h1>
+
+  <!-- 1. OpenWeatherMap API -->
+  <section>
+    <h2>1. Weather (via Open-Meteo)</h2>
+    <button onclick="getWeather()">Get Weather (London)</button>
+    <pre id="weatherOutput">Weather data will appear here...</pre>
+  </section>
+
+  <!-- 2. CoinGecko API -->
+  <section>
+    <h2>2. CoinGecko (Bitcoin Price)</h2>
+    <button onclick="getCrypto()">Get BTC Price</button>
+    <pre id="cryptoOutput">BTC price will appear here...</pre>
+  </section>
+
+  <!-- 3. REST Countries -->
+  <section>
+    <h2>3. Country Info (REST Countries)</h2>
+    <button onclick="getCountry()">Get Brazil Info</button>
+    <pre id="countryOutput">Country info will appear here...</pre>
+  </section>
+
+  <!-- 4. NASA APOD API -->
+  <section>
+    <h2>4. NASA Astronomy Picture of the Day</h2>
+    <button onclick="getNasa()">Get APOD</button>
+    <pre id="nasaOutput">NASA APOD info will appear here...</pre>
+  </section>
+
+  <!-- 5. Dog API -->
+  <section>
+    <h2>5. Random Dog Image</h2>
+    <button onclick="getDog()">Get Dog</button><br>
+    <img id="dogImage" src="" style="max-width: 300px; margin-top: 10px;">
+  </section>
+
+  <!-- 6. Cat Facts -->
+  <section>
+    <h2>6. Cat Fact</h2>
+    <button onclick="getCatFact()">Get Cat Fact</button>
+    <pre id="catFact">Cat fact will appear here...</pre>
+  </section>
+
+  <!-- 7. Joke API -->
+  <section>
+    <h2>7. Programming Joke</h2>
+    <button onclick="getJoke()">Get Joke</button>
+    <pre id="jokeOutput">Joke will appear here...</pre>
+  </section>
+
+  <!-- 8. IPify -->
+  <section>
+    <h2>8. Your Public IP (ipify)</h2>
+    <button onclick="getIP()">Get IP</button>
+    <pre id="ipOutput">Your IP will appear here...</pre>
+  </section>
+
+  <!-- 9. Currency Exchange -->
+  <section>
+    <h2>9. Exchange Rate (EUR → USD)</h2>
+    <button onclick="getRate()">Get Rate</button>
+    <pre id="rateOutput">Rate will appear here...</pre>
+  </section>
+
+  <!-- 10. Bored API -->
+  <section>
+    <h2>10. Bored? Try This!</h2>
+    <button onclick="getActivity()">Suggest Activity</button>
+    <pre id="activityOutput">Activity will appear here...</pre>
+  </section>
+
+<script>
+  async function getWeather() {
+    const res = await fetch('https://api.open-meteo.com/v1/forecast?latitude=51.5&longitude=-0.1&current_weather=true');
+    const data = await res.json();
+    document.getElementById('weatherOutput').textContent = `Temperature: ${data.current_weather.temperature}°C, Windspeed: ${data.current_weather.windspeed} km/h`;
+  }
+
+  async function getCrypto() {
+    const res = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd');
+    const data = await res.json();
+    document.getElementById('cryptoOutput').textContent = `Bitcoin Price: $${data.bitcoin.usd}`;
+  }
+
+  async function getCountry() {
+    const res = await fetch('https://restcountries.com/v3.1/name/brazil');
+    const data = await res.json();
+    const country = data[0];
+    document.getElementById('countryOutput').textContent = `Name: ${country.name.common}\nCapital: ${country.capital[0]}\nPopulation: ${country.population}`;
+  }
+
+  async function getNasa() {
+    const res = await fetch('https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY');
+    const data = await res.json();
+    document.getElementById('nasaOutput').textContent = `Title: ${data.title}\nDate: ${data.date}\nURL: ${data.url}`;
+  }
+
+  async function getDog() {
+    const res = await fetch('https://dog.ceo/api/breeds/image/random');
+    const data = await res.json();
+    document.getElementById('dogImage').src = data.message;
+  }
+
+  async function getCatFact() {
+    const res = await fetch('https://catfact.ninja/fact');
+    const data = await res.json();
+    document.getElementById('catFact').textContent = data.fact;
+  }
+
+  async function getJoke() {
+    const res = await fetch('https://v2.jokeapi.dev/joke/Programming?type=single');
+    const data = await res.json();
+    document.getElementById('jokeOutput').textContent = data.joke;
+  }
+
+  async function getIP() {
+    const res = await fetch('https://api.ipify.org?format=json');
+    const data = await res.json();
+    document.getElementById('ipOutput').textContent = `Your IP is: ${data.ip}`;
+  }
+
+  async function getRate() {
+    const res = await fetch('https://api.frankfurter.app/latest?from=EUR&to=USD');
+    const data = await res.json();
+    document.getElementById('rateOutput').textContent = `1 EUR = ${data.rates.USD} USD`;
+  }
+
+  async function getActivity() {
+    const res = await fetch('https://www.boredapi.com/api/activity');
+    const data = await res.json();
+    document.getElementById('activityOutput').textContent = `${data.activity} (${data.type})`;
+  }
+</script>
+
+</body>
+</html>

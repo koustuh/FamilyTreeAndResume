@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Loan EMI Comparison Tool</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0f2f5;
+      padding: 20px;
+      color: #333;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #2c3e50;
+    }
+    .container {
+      max-width: 1000px;
+      margin: auto;
+      background: white;
+      padding: 20px 30px 40px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgb(0 0 0 / 0.1);
+    }
+    .loan-inputs {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+    .loan-group {
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 15px 20px;
+      flex: 1;
+      min-width: 250px;
+      background: #fafafa;
+      position: relative;
+    }
+    .loan-group h3 {
+      margin-top: 0;
+      color: #34495e;
+      text-align: center;
+      margin-bottom: 12px;
+    }
+    label {
+      display: block;
+      margin-top: 12px;
+      font-weight: 600;
+      font-size: 14px;
+      color: #555;
+    }
+    input[type="number"] {
+      width: 100%;
+      padding: 8px 10px;
+      margin-top: 5px;
+      border-radius: 5px;
+      border: 1px solid #bbb;
+      font-size: 15px;
+      box-sizing: border-box;
+    }
+    .checkbox-container {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      font-weight: 600;
+      color: #555;
+      user-select: none;
+    }
+    .controls {
+      text-align: center;
+      margin-bottom: 25px;
+    }
+    select, button {
+      padding: 8px 14px;
+      font-size: 16px;
+      margin: 0 10px 10px 10px;
+      border-radius: 5px;
+      border: 1px solid #aaa;
+      min-width: 180px;
+      cursor: pointer;
+    }
+    button {
+      background-color: #2980b9;
+      color: white;
+      border: none;
+      transition: background-color 0.3s ease;
+    }
+    button:hover {
+      background-color: #1c5980;
+    }
+    .chart-container {
+      max-width: 900px;
+      margin: auto;
+    }
+    canvas {
+      background: #fff;
+      border-radius: 12px;
+      padding: 15px;
+      box-shadow: 0 4px 15px rgb(0 0 0 / 0.1);
+    }
+    @media (max-width: 900px) {
+      .loan-inputs {
+        flex-direction: column;
+      }
+      .loan-group {
+        min-width: auto;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Loan EMI Comparison Tool</h1>
+
+  <div class="container">
+
+    <div class="loan-inputs">
+
+      <div class="loan-group">
+        <div class="checkbox-container">
+          <input type="checkbox" id="loanCheck1" checked />
+          <label for="loanCheck1">Loan 1</label>
+        </div>
+        <h3>Loan 1</h3>
+        <label for="loanAmount1">Loan Amount (₹)</label>
+        <input type="number" id="loanAmount1" min="1000" step="1000" placeholder="e.g. 4300000" value="4300000" />
+        <label for="interestRate1">Interest Rate (%) per annum</label>
+        <input type="number" id="interestRate1" min="0" step="0.01" placeholder="e.g. 6.5" value="6.5" />
+        <label for="tenure1">Max Tenure (years)</label>
+        <input type="number" id="tenure1" min="1" max="30" step="1" placeholder="e.g. 30" value="30" />
+      </div>
+
+      <div class="loan-group">
+        <div class="checkbox-container">
+          <input type="checkbox" id="loanCheck2" checked />
+          <label for="loanCheck2">Loan 2</label>
+        </div>
+        <h3>Loan 2</h3>
+        <label for="loanAmount2">Loan Amount (₹)</label>
+        <input type="number" id="loanAmount2" min="1000" step="1000" placeholder="e.g. 4300000" value="4300000" />
+        <label for="interestRate2">Interest Rate (%) per annum</label>
+        <input type="number" id="interestRate2" min="0" step="0.01" placeholder="e.g. 7.5" value="7.5" />
+        <label for="tenure2">Max Tenure (years)</label>
+        <input type="number" id="tenure2" min="1" max="30" step="1" placeholder="e.g. 30" value="30" />
+      </div>
+
+      <div class="loan-group">
+        <div class="checkbox-container">
+          <input type="checkbox" id="loanCheck3" checked />
+          <label for="loanCheck3">Loan 3</label>
+        </div>
+        <h3>Loan 3</h3>
+        <label for="loanAmount3">Loan Amount (₹)</label>
+        <input type="number" id="loanAmount3" min="1000" step="1000" placeholder="e.g. 4300000" value="4300000" />
+        <label for="interestRate3">Interest Rate (%) per annum</label>
+        <input type="number" id="interestRate3" min="0" step="0.01" placeholder="e.g. 8.25" value="8.25" />
+        <label for="tenure3">Max Tenure (years)</label>
+        <input type="number" id="tenure3" min="1" max="30" step="1" placeholder="e.g. 30" value="30" />
+      </div>
+
+    </div>
+
+    <div class="controls">
+      <label for="chartTypeSelector">Select Chart Type:</label>
+      <select id="chartTypeSelector">
+        <option value="line">Line Chart</option>
+        <option value="bar">Bar Chart (Vertical)</option>
+        <option value="horizontalBar">Bar Chart (Horizontal)</option>
+        <option value="radar">Radar Chart</option>
+        <option value="polarArea">Polar Area Chart</option>
+        <option value="doughnut">Doughnut Chart</option>
+        <option value="pie">Pie Chart</option>
+      </select>
+      <button id="calculateBtn">Calculate & Show Chart</button>
+    </div>
+
+    <div class="chart-container">
+      <canvas id="emiChart" height="120"></canvas>
+    </div>
+
+  </div>
+
+  <script>
+    const tenuresToShow = [5, 10, 15, 20, 25, 30];
+    const colors = ['#2ecc71', '#3498db', '#e67e22'];
+    const ctx = document.getElementById('emiChart').getContext('2d');
+    let chart;
+
+    function calculateEMI(principal, annualInterestRate, years) {
+      if (annualInterestRate === 0) return principal / (years * 12);
+      let monthlyRate = annualInterestRate / 12 / 100;
+      let months = years * 12;
+      return (principal * monthlyRate * Math.pow(1 + monthlyRate, months)) / (Math.pow(1 + monthlyRate, months) - 1);
+    }
+
+    function getLoanDataSet(loanNum) {
+      const checkbox = document.getElementById(`loanCheck${loanNum}`);
+      if (!checkbox.checked) return null;
+
+      const principal = parseFloat(document.getElementById(`loanAmount${loanNum}`).value);
+      const rate = parseFloat(document.getElementById(`interestRate${loanNum}`).value);
+      let maxTenure = parseInt(document.getElementById(`tenure${loanNum}`).value);
+
+      if (isNaN(principal) || principal <= 0) return null;
+      if (isNaN(rate) || rate < 0) return null;
+      if (isNaN(maxTenure) || maxTenure < 1) maxTenure = 30;
+
+      const filteredTenures = tenuresToShow.filter(t => t <= maxTenure);
+      const emis = filteredTenures.map(tenure => calculateEMI(principal, rate, tenure));
+
+      return {
+        label: `Loan ${loanNum} (${rate.toFixed(2)}%)`,
+        principal,
+        rate,
+        maxTenure,
+        tenures: filteredTenures,
+        emis
+      };
+    }
+
+    function buildChartData(loans) {
+      let allTenuresSet = new Set();
+      loans.forEach(loan => {
+        if (loan) loan.tenures.forEach(t => allTenuresSet.add(t));
+      });
+      let allTenures = Array.from(allTenuresSet).sort((a, b) => a - b);
+
+      let datasets = loans.map((loan, i) => {
+        if (!loan) return null;
+
+        const data = allTenures.map(t => {
+          let idx = loan.tenures.indexOf(t);
+          return idx === -1 ? null : Math.round(loan.emis[idx]);
+        });
+
+        return {
+          label: loan.label,
+          data: data,
+          borderColor: colors[i],
+          backgroundColor: colors[i] + '88',
+          fill: false,
+          borderWidth: 2,
+          tension: 0.3,
+          pointRadius: 5,
+          spanGaps: true
+        };
+      }).filter(d => d !== null);
+
+      return { labels: allTenures.map(t => t + " yrs"), datasets };
+    }
+
+    function renderChart(type) {
+      const loan1 = getLoanDataSet(1);
+      const loan2 = getLoanDataSet(2);
+      const loan3 = getLoanDataSet(3);
+      const loans = [loan1, loan2, loan3];
+
+      // If no loan selected, clear chart
+      if (loans.every(l => l === null)) {
+        if (chart) chart.destroy();
+        ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+        alert("Please select at least one loan by checking its checkbox.");
+        return;
+      }
+
+      const chartData = buildChartData(loans);
+      if (chart) chart.destroy();
+
+      const isHorizontalBar = type === 'horizontalBar';
+      const isCircular = ['pie', 'doughnut', 'polarArea'].includes(type);
+
+      let config = {
+        type: isHorizontalBar ? 'bar' : type,
+        data: {},
+        options: {
+          responsive: true,
+          plugins: {
+            title: {
+              display: true,
+              text: "Loan EMI Comparison",
+              font: { size: 20 }
+            },
+            tooltip: {
+              callbacks: {
+                label: ctx => {
+                  const val = ctx.raw;
+                  if (val === null) return 'No data';
+                  return `₹${Math.round(val).toLocaleString()}`;
+                }
+              }
+            },
+            legend: {
+              labels: {
+                font: { size: 14 }
+              }
+            }
+          },
+          scales: {}
+        }
+      };
+
+      if (isCircular) {
+        let fifteenYrIndex = chartData.labels.indexOf("15 yrs");
+        if (fifteenYrIndex === -1) fifteenYrIndex = 0;
+
+        const circularData = {
+          labels: chartData.datasets.map(ds => ds.label),
+          datasets: [{
+            label: "EMI at 15 Years",
+            data: chartData.datasets.map(ds => ds.data[fifteenYrIndex]),
+            backgroundColor: chartData.datasets.map(ds => ds.backgroundColor),
+            borderWidth: 1
+          }]
+        };
+        config.data = circularData;
+      } else {
+        config.data = chartData;
+        config.options.scales = {
+          y: {
+            beginAtZero: true,
+            title: {
+              display: true,
+              text: "EMI Amount (₹)"
+            },
+            ticks: {
+              callback: val => `₹${val.toLocaleString()}`
+            }
+          },
+          x: {
+            title: {
+              display: true,
+              text: "Loan Tenure"
+            }
+          }
+        };
+        if (isHorizontalBar) {
+          config.options.indexAxis = 'y';
+        }
+      }
+
+      chart = new Chart(ctx, config);
+    }
+
+    document.getElementById('calculateBtn').addEventListener('click', () => {
+      const chartType = document.getElementById('chartTypeSelector').value;
+      renderChart(chartType);
+    });
+
+    // Optionally: update chart if chart type changed and loans are selected
+    document.getElementById('chartTypeSelector').addEventListener('change', () => {
+      // Only update if at least one loan is checked
+      if (['loanCheck1', 'loanCheck2', 'loanCheck3'].some(id => document.getElementById(id).checked)) {
+        renderChart(document.getElementById('chartTypeSelector').value);
+      }
+    });
+
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Random Girl Image</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #fafafa;
+      text-align: center;
+      padding: 50px;
+    }
+    img {
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      max-width: 90%;
+      height: auto;
+      margin-top: 20px;
+      transition: 0.3s;
+    }
+    button {
+      margin-top: 25px;
+      padding: 10px 25px;
+      font-size: 16px;
+      background-color: #ff4f5a;
+      border: none;
+      border-radius: 6px;
+      color: white;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    button:hover {
+      background-color: #ff2b3c;
+    }
+  </style>
+</head>
+<body>
+  <h1>Random Girl Image</h1>
+  <p>Click the button below to load a new random image.</p>
+  
+  <img id="randomImage" src="" alt="Random Girl Image" />
+  <br>
+  <button onclick="loadImage()">New Image</button>
+
+  <script>
+    function loadImage() {
+      const img = document.getElementById('randomImage');
+      // Get a random image from Unsplash with tags: woman, girl, portrait
+      img.src = `https://source.unsplash.com/600x800/?woman,girl,portrait&rand=${Date.now()}`;
+    }
+
+    // Load a random image when the page starts
+    loadImage();
+  </script>
+</body>
+</html>

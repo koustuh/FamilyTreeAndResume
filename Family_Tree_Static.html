@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Family Tree</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f9f9f9;
+    display: flex;
+    justify-content: center;
+    padding: 50px 0;
+}
+
+.tree ul {
+    padding-top: 20px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+}
+
+.tree li {
+    text-align: center;
+    list-style-type: none;
+    position: relative;
+    padding: 20px 5px 0 5px;
+}
+
+/* Connectors */
+.tree li::before, .tree li::after {
+    content: '';
+    position: absolute;
+    top: 0; right: 50%;
+    border-top: 1px solid #ccc;
+    width: 50%;
+    height: 20px;
+}
+.tree li::after {
+    right: auto;
+    left: 50%;
+    border-left: 1px solid #ccc;
+}
+.tree li:only-child::before, .tree li:only-child::after { display: none; }
+.tree li:only-child { padding-top: 0; }
+
+.tree li:first-child::before,
+.tree li:last-child::after { border: 0 none; }
+.tree li:last-child::before { border-right: 1px solid #ccc; }
+
+.tree ul ul::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    border-left: 1px solid #ccc;
+    width: 0;
+    height: 20px;
+}
+
+.tree li a {
+    border: 1px solid #ccc;
+    padding: 8px 12px;
+    text-decoration: none;
+    color: #333;
+    font-size: 12px;
+    display: inline-block;
+    border-radius: 6px;
+    background: #f0f8ff;
+}
+
+/* Deceased style */
+.dead {
+    background-color: #ffe5e5 !important;
+    border-color: red !important;
+    color: red !important;
+    font-weight: bold;
+}
+</style>
+</head>
+<body>
+
+<div class="tree">
+<ul>
+<li>
+<a href="#">Narayan + Laxumi</a>
+<ul>
+
+    <!-- Gopal Branch -->
+    <li>
+        <a href="#">Gopal + Sumati</a>
+        <ul>
+            <li>
+                <a href="#">
+                    <span class="dead">Pandu (Deceased)</span> + Joti
+                </a>
+                <ul>
+                    <li><a href="#">Kank</a></li>
+                    <li><a href="#">Hana</a></li>
+                    <li><a href="#">Laddu</a></li>
+                </ul>
+            </li>
+            <li><a href="#">Kana</a></li>
+            <li><a href="#">Dhan</a></li>
+        </ul>
+    </li>
+
+    <!-- Nanu Branch -->
+    <li>
+        <a href="#">Nanu + Sunita</a>
+        <ul>
+            <li>
+                <a href="#">Deepak</a>
+                <ul>
+                    <li><a href="#">Om</a></li>
+                </ul>
+            </li>
+            <li><a href="#">Prakash</a></li>
+            <li><a href="#">Ganesh</a></li>
+        </ul>
+    </li>
+
+    <!-- Sanjavani Branch -->
+    <li>
+        <a href="#">
+            Sanjavani + <span class="dead">Govind (Deceased)</span>
+        </a>
+        <ul>
+
+            <li>
+                <a href="#">Koustubh + Komal</a>
+                <ul>
+                    <li><a href="#">Liwansh</a></li>
+                </ul>
+            </li>
+
+            <li>
+                <a href="#">Bhushan + Bhakti</a>
+                <ul>
+                    <li><a href="#">Parth</a></li>
+                    <li><a href="#">Samruddhi</a></li>
+                </ul>
+            </li>
+
+            <li><a href="#">Vishal</a></li>
+
+        </ul>
+    </li>
+
+</ul>
+</li>
+</ul>
+</div>
+
+</body>
+</html>

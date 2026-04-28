@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Koustubh Javheri - Project Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            min-height: 100vh;
+            color: #fff;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            padding: 40px 20px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 20px;
+            margin-bottom: 30px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            background: linear-gradient(90deg, #00d4ff, #7b2cbf);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .header p {
+            color: #aaa;
+            font-size: 1.1em;
+        }
+
+        .stats-bar {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            background: rgba(255,255,255,0.08);
+            padding: 15px 30px;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .stat-item .number {
+            font-size: 2em;
+            font-weight: 700;
+            color: #00d4ff;
+        }
+
+        .stat-item .label {
+            color: #aaa;
+            font-size: 0.9em;
+        }
+
+        .search-box {
+            max-width: 500px;
+            margin: 0 auto 30px;
+            position: relative;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 15px 20px 15px 50px;
+            border-radius: 50px;
+            border: 2px solid rgba(255,255,255,0.1);
+            background: rgba(255,255,255,0.08);
+            color: #fff;
+            font-size: 1em;
+            outline: none;
+            transition: all 0.3s;
+        }
+
+        .search-box input:focus {
+            border-color: #00d4ff;
+            background: rgba(255,255,255,0.12);
+        }
+
+        .search-box i {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #aaa;
+        }
+
+        .categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 25px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .category-card {
+            background: rgba(255,255,255,0.05);
+            border-radius: 20px;
+            padding: 25px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .category-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+
+        .category-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .category-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5em;
+        }
+
+        .category-title {
+            font-size: 1.3em;
+            font-weight: 600;
+        }
+
+        .category-count {
+            background: rgba(255,255,255,0.1);
+            padding: 3px 12px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            margin-left: auto;
+        }
+
+        .file-list {
+            list-style: none;
+        }
+
+        .file-list li {
+            margin-bottom: 8px;
+        }
+
+        .file-list a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 15px;
+            border-radius: 12px;
+            color: #ddd;
+            text-decoration: none;
+            transition: all 0.3s;
+            background: rgba(255,255,255,0.03);
+        }
+
+        .file-list a:hover {
+            background: rgba(255,255,255,0.1);
+            color: #fff;
+            transform: translateX(5px);
+        }
+
+        .file-list a i {
+            color: #00d4ff;
+            font-size: 0.9em;
+        }
+
+        .file-list a .file-name {
+            font-size: 0.95em;
+        }
+
+        .file-list a .file-desc {
+            font-size: 0.75em;
+            color: #888;
+            margin-left: auto;
+        }
+
+        /* Category Colors */
+        .cat-resume .category-icon { background: linear-gradient(135deg, #667eea, #764ba2); }
+        .cat-job .category-icon { background: linear-gradient(135deg, #f093fb, #f5576c); }
+        .cat-family .category-icon { background: linear-gradient(135deg, #4facfe, #00f2fe); }
+        .cat-diagram .category-icon { background: linear-gradient(135deg, #43e97b, #38f9d7); }
+        .cat-api .category-icon { background: linear-gradient(135deg, #fa709a, #fee140); }
+        .cat-tool .category-icon { background: linear-gradient(135deg, #a8edea, #fed6e3); color: #333; }
+        .cat-course .category-icon { background: linear-gradient(135deg, #ff9a9e, #fecfef); color: #333; }
+        .cat-game .category-icon { background: linear-gradient(135deg, #ffecd2, #fcb69f); color: #333; }
+        .cat-other .category-icon { background: linear-gradient(135deg, #667eea, #764ba2); }
+
+        .footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: #888;
+            margin-top: 30px;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 40px;
+            color: #888;
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .categories {
+                grid-template-columns: 1fr;
+            }
+            .header h1 {
+                font-size: 1.8em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1><i class="fas fa-code"></i> Project Dashboard</h1>
+        <p>Koustubh Javheri - HTML Projects Collection</p>
+        <div class="stats-bar">
+            <div class="stat-item">
+                <div class="number">38</div>
+                <div class="label">Total Projects</div>
+            </div>
+            <div class="stat-item">
+                <div class="number">8</div>
+                <div class="label">Categories</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="search-box">
+        <i class="fas fa-search"></i>
+        <input type="text" id="searchInput" placeholder="Search projects..." onkeyup="filterProjects()">
+    </div>
+
+    <div class="categories" id="categoriesContainer">
+        <!-- Resumes -->
+        <div class="category-card cat-resume" data-category="resume">
+            <div class="category-header">
+                <div class="category-icon"><i class="fas fa-file-alt"></i></div>
+                <div class="category-title">Resumes</div>
+                <div class="category-count">8</div>
+            </div>
+            <ul class="file-list">
+                <li><a href="Resume_Koustubh_Javheri_Classic.html"><i class="fas fa-external-link-alt"></i><span class="file-name">Resume - Classic</span><span class="file-desc">Traditional layout</span></a></li>
+                <li><a href="Resume_Koustubh_Javheri_Modern.html"><i class="fas fa-external-link-alt"></i><span class="file-name">Resume - Modern</span><span class="file-desc">Clean design</span></a></li>
+                <li><a href="Resume_Koustubh_Javheri_v2.html"><i class="fas fa-external-link-alt"></i><span class="file-name">Resume - Version 2</span><span class="file-desc">Alternative style</span></a></li>
+                <li><a href="Resume_Koustubh_Javheri_Fancy_v1.html"><i class="fas fa-external-link-alt"></i><span class="file-name">Resume - Fancy v1</span><span class="file-desc">Premium design</span></a></li>
+                <li><a href="Resume_Koustubh_Javheri_Fancy_v2.html"><i class="fas fa-external-link-alt"></i><span class="file-name">Resume - Fancy v2</span><span class="file-desc">Premium design 2</span></a></li>
+                <li><a href="Resume_Full_Stack_NET_Developer.html"><i class="fas fa-external-link-alt"></i><span class="file-name">Resume - .NET Developer</span><span class="file-desc">Role focused</span></a></li>
+                <li><a href="Resume_Gligor_Biljarski.html"><i class="fas fa-external-link-alt"></i><span class="file-name">Resume - Gligor Biljarski</span><span class="file-desc">Other person</span></a></li>
+                <li><a href="IT_Resume_Koustubh_Javheri_Timeline.html"><i class="fas fa-external-link-alt"></i><span class="file-name">IT Resume - Timeline</span><span class="file-desc">Timeline layout</span></a></li>
+                <li><a href="IT_Resume_Koustubh_Javheri_Timeline_v2.html"><i class="fas fa-external-link-alt"></i><span class="file-name">IT Resume - Timeline v2</span><span class="file-desc">Updated timeline</span></a></li>
+                <li><a href="IT_Resume_Koustubh_Javheri_Timeline_Copy.html"><i class="fas fa-external-link-alt"></i><span class="file-name">IT Resume - Timeline Copy</span><span class="file-desc">Backup version</span></a></li>
+            </ul>
+        </div>
+
+        <!-- Job & Career -->
+        <div class="category-card cat-job" data-category="job">
+            <div class="category-header">
+                <div class="category-icon"><i class="fas fa-briefcase"></i></div>
+                <div class="category-title">Job & Career</div>
+                <div class="category-count">7</div>
+            </div>
+            <ul class="file-list">
+                <li><a href="Post_a_Job.html"><i class="fas fa-external-link-alt"></i><span class="file-name">Post a Job</span><span class="file-desc">Job posting form</span></a></li>
+                <li><a href="Remote_Hiring_Family_Based_Jobs.html"><i class="fas fa-external-link-alt"></i><span class="file-name">Remote Hiring</span><span class="file-desc">Family-based jobs</span></a></li>
+                <li><a href="Upload_Earn_Offer.html"><i class="fas fa-external-link-alt"></i><span class="file-name">Upload & Earn</span><span class="file-desc">Document rate card</span></a></li>
+                <li><a href="Job_Hierarchy_Flow_Diagram_Bright.html"><i class="fas fa-external-link-alt"></i><span class="file-name">Hierarchy - Bright</span><span class="file-desc">Colorful diagram</span></a></li>
+                <li><a href="Job_Hierarchy_Flow_Diagram_Centered.html"><i class="fas fa-external-link-alt"></i><span class="file-name">Hierarchy - Centered</span><span class="file-desc">Centered layout</span></a></li>
+                <li><a href="Job_Hierarchy_Tree_Diagram.html"><i class="fas fa-external-link-alt"></i><span class="file-name">Hierarchy - Tree</span><span class="file-desc">Tree structure</span></a></li>
+                <li><a href="Job_Hierarchy_Tree_Diagram_Upside_Down.html"><i class="fas fa-external-link-alt"></i><span class="file-name">Hierarchy - Upside Down</span><span class="file-desc">Inverted tree</span></a></li>
+            </ul>
+        </div>
+
+        <!-- Family Tree -->
+        <div class="category-card cat-family" data-category="family">
+            <div class="category-header">
+                <div class="category-icon"><i class="fas fa-sitemap"></i></div>
+                <div class="category-title">Family Tree</div>
+                <div class="category-count">3</div>
+            </div>
+            <ul class="file-list">
+                <li><a href="Family_Tree_Static.html"><i class="fas fa-external-link-alt"></i><span class="file-name">Family Tree - Static</span><span class="file-desc">HTML/CSS only</span></a></li>
+                <li><a href="Family_Tree_Dynamic.html"><i class="fas fa-external-link-alt"></i><span class="file-name">Family Tree - Dynamic</span><span class="file-desc">JS generated</span></a></li>
+                <li><a href="Interactive_Family_Tree.html"><i class="fas fa-external-link-alt"></i><span class="file-name">Interactive Family Tree</span><span class="file-desc">Interactive version</span></a></li>
+            </ul>
+        </div>
+
+        <!-- Diagrams & Charts -->
+        <div class="category-card cat-diagram" data-category="diagram">
+            <div class="category-header">
+                <div class="category-icon"><i class="fas fa-project-diagram"></i></div>
+                <div class="category-title">Diagrams & Charts</div>
+                <div class="category-count">2</div>
+            </div>
+            <ul class="file-list">
+                <li><a href="HTML_Diagram_Libraries.html"><i class="fas fa-external-link-alt"></i><span class="file-name">HTML Diagram Libraries</span><span class="file-desc">Library showcase</span></a></li>
+                <li><a href="HTML_Diagram_Blog_Working.html"><i class="fas fa-external-link-alt"></i><span class="file-name">HTML Diagram Blog</span><span class="file-desc">Working examples</span></a></li>
+            </ul>
+        </div>
+
+        <!-- APIs & Data -->
+        <div class="category-card cat-api" data-category="api">
+            <div class="category-header">
+                <div class="category-icon"><i class="fas fa-plug"></i></div>
+                <div class="category-title">APIs & Data</div>
+                <div class="category-count">3</div>
+            </div>
+            <ul class="file-list">
+                <li><a href="Free_API_Examples.html"><i class="fas fa-external-link-alt"></i><span class="file-name">Free API Examples</span><span class="file-desc">10+ public APIs</span></a></li>
+                <li><a href="NASA_API_Demo.html"><i class="fas fa-external-link-alt"></i><span class="file-name">NASA API Demo</span><span class="file-desc">Space data</span></a></li>
+                <li><a href="AI_Document_QA.html"><i class="fas fa-external-link-alt"></i><span class="file-name">AI Document Q&A</span><span class="file-desc">PDF Q&A tool</span></a></li>
+            </ul>
+        </div>
+
+        <!-- Tools & Utilities -->
+        <div class="category-card cat-tool" data-category="tool">
+            <div class="category-header">
+                <div class="category-icon"><i class="fas fa-tools"></i></div>
+                <div class="category-title">Tools & Utilities</div>
+                <div class="category-count">4</div>
+            </div>
+            <ul class="file-list">
+                <li><a href="Loan_EMI_Comparison_Tool.html"><i class="fas fa-external-link-alt"></i><span class="file-name">Loan EMI Comparison</span><span class="file-desc">Financial calculator</span></a></li>
+                <li><a href="Store_Entry_Form.html"><i class="fas fa-external-link-alt"></i><span class="file-name">Store Entry Form</span><span class="file-desc">Data entry form</span></a></li>
+                <li><a href="OCR_Result_Embryo.html"><i class="fas fa-external-link-alt"></i><span class="file-name">OCR Result</span><span class="file-desc">Text extraction</span></a></li>
+                <li><a href="Flipkart_Order_Summary.html"><i class="fas fa-external-link-alt"></i><span class="file-name">Flipkart Order Summary</span><span class="file-desc">E-commerce UI</span></a></li>
+            </ul>
+        </div>
+
+        <!-- Courses -->
+        <div class="category-card cat-course" data-category="course">
+            <div class="category-header">
+                <div class="category-icon"><i class="fas fa-graduation-cap"></i></div>
+                <div class="category-title">Courses</div>
+                <div class="category-count">2</div>
+            </div>
+            <ul class="file-list">
+                <li><a href="Online_Course_Koustubh_Javheri.html"><i class="fas fa-external-link-alt"></i><span class="file-name">Online Course</span><span class="file-desc">Course landing page</span></a></li>
+                <li><a href="Online_Course_Koustubh_Javheri_With_Ads.html"><i class="fas fa-external-link-alt"></i><span class="file-name">Online Course (With Ads)</span><span class="file-desc">Ad-supported version</span></a></li>
+            </ul>
+        </div>
+
+        <!-- Games & Fun -->
+        <div class="category-card cat-game" data-category="game">
+            <div class="category-header">
+                <div class="category-icon"><i class="fas fa-gamepad"></i></div>
+                <div class="category-title">Games & Fun</div>
+                <div class="category-count">5</div>
+            </div>
+            <ul class="file-list">
+                <li><a href="ThreeJS_Small_Example.html"><i class="fas fa-external-link-alt"></i><span class="file-name">Three.js Example</span><span class="file-desc">3D demo</span></a></li>
+                <li><a href="ThreeJS_Sum_Game.html"><i class="fas fa-external-link-alt"></i><span class="file-name">Three.js Sum Game</span><span class="file-desc">Math game</span></a></li>
+                <li><a href="Random_Dog_Image.html"><i class="fas fa-external-link-alt"></i><span class="file-name">Random Dog Image</span><span class="file-desc">Dog photos</span></a></li>
+                <li><a href="Random_Girl_Image.html"><i class="fas fa-external-link-alt"></i><span class="file-name">Random Girl Image</span><span class="file-desc">Image gallery</span></a></li>
+                <li><a href="Shark_Tank_India_Judges.html"><i class="fas fa-external-link-alt"></i><span class="file-name">Shark Tank India</span><span class="file-desc">Judges info</span></a></li>
+            </ul>
+        </div>
+
+        <!-- Other -->
+        <div class="category-card cat-other" data-category="other">
+            <div class="category-header">
+                <div class="category-icon"><i class="fas fa-folder"></i></div>
+                <div class="category-title">Other</div>
+                <div class="category-count">2</div>
+            </div>
+            <ul class="file-list">
+                <li><a href="CSharp_Person_Class.html"><i class="fas fa-external-link-alt"></i><span class="file-name">C# Person Class</span><span class="file-desc">Code snippet</span></a></li>
+                <li><a href="Empty_Page.html"><i class="fas fa-external-link-alt"></i><span class="file-name">Empty Page</span><span class="file-desc">Blank template</span></a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="no-results" id="noResults">
+        <i class="fas fa-search" style="font-size: 3em; margin-bottom: 15px;"></i>
+        <p>No projects found matching your search.</p>
+    </div>
+
+    <div class="footer">
+        <p><i class="fas fa-heart" style="color: #e74c3c;"></i> Built with passion by Koustubh Javheri</p>
+        <p style="margin-top: 10px; font-size: 0.9em;">Contact: javherikg@outlook.com | +91 8792839996</p>
+    </div>
+
+    <script>
+        function filterProjects() {
+            const input = document.getElementById('searchInput').value.toLowerCase();
+            const cards = document.querySelectorAll('.category-card');
+            const noResults = document.getElementById('noResults');
+            let visibleCount = 0;
+
+            cards.forEach(card => {
+                const links = card.querySelectorAll('.file-list li');
+                let cardHasVisible = false;
+
+                links.forEach(li => {
+                    const text = li.textContent.toLowerCase();
+                    if (text.includes(input)) {
+                        li.style.display = '';
+                        cardHasVisible = true;
+                    } else {
+                        li.style.display = 'none';
+                    }
+                });
+
+                if (cardHasVisible) {
+                    card.style.display = '';
+                    visibleCount++;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            noResults.style.display = visibleCount === 0 ? 'block' : 'none';
+        }
+    </script>
+</body>
+</html>
+

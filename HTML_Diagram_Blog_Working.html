@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>HTML Diagram Blog - Working</title>
+
+<!-- Mermaid -->
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<!-- D3 -->
+<script src="https://d3js.org/d3.v7.min.js"></script>
+
+<style>
+body { font-family: Arial; margin: 20px; background:#f4f6f8; }
+.card {
+    background:white;
+    padding:20px;
+    margin-bottom:20px;
+    border-radius:10px;
+    box-shadow:0 0 10px rgba(0,0,0,0.1);
+}
+canvas { max-width:400px; }
+svg { border:1px solid #ccc; margin-top:10px; }
+</style>
+
+<script>
+mermaid.initialize({ startOnLoad:true });
+</script>
+
+</head>
+
+<body>
+
+<h1>📊 Working HTML Diagram & Graph Blog</h1>
+
+<!-- ================= MERMAID ================= -->
+<div class="card">
+<h2>1. Mermaid Diagrams (3 Examples)</h2>
+
+<div class="mermaid">
+flowchart TD
+A --> B --> C
+</div>
+
+<div class="mermaid">
+sequenceDiagram
+User->>App: Login
+App-->>User: Success
+</div>
+
+<div class="mermaid">
+stateDiagram-v2
+[*] --> Start
+Start --> End
+</div>
+
+</div>
+
+<!-- ================= CHART.JS ================= -->
+<div class="card">
+<h2>2. Chart.js (3 Graphs)</h2>
+
+<canvas id="bar"></canvas>
+<canvas id="line"></canvas>
+<canvas id="pie"></canvas>
+
+</div>
+
+<!-- ================= D3 ================= -->
+<div class="card">
+<h2>3. D3.js (3 Examples)</h2>
+
+<div id="d3text"></div>
+
+<svg id="circleSvg" width="150" height="150"></svg>
+<svg id="rectSvg" width="150" height="150"></svg>
+
+</div>
+
+<script>
+// Chart.js
+new Chart(document.getElementById("bar"), {
+ type: 'bar',
+ data: {
+  labels: ['A','B','C'],
+  datasets: [{ data: [10,20,15] }]
+ }
+});
+
+new Chart(document.getElementById("line"), {
+ type: 'line',
+ data: {
+  labels: ['A','B','C'],
+  datasets: [{ data: [5,15,25] }]
+ }
+});
+
+new Chart(document.getElementById("pie"), {
+ type: 'pie',
+ data: {
+  labels: ['A','B','C'],
+  datasets: [{ data: [30,40,30] }]
+ }
+});
+
+// D3 Example 1: Text
+d3.select("#d3text").append("p").text("Hello from D3");
+
+// D3 Example 2: Circle
+d3.select("#circleSvg")
+  .append("circle")
+  .attr("cx", 70)
+  .attr("cy", 70)
+  .attr("r", 50);
+
+// D3 Example 3: Rectangle
+d3.select("#rectSvg")
+  .append("rect")
+  .attr("width", 100)
+  .attr("height", 50)
+  .attr("x", 20)
+  .attr("y", 40);
+
+</script>
+
+</body>
+</html>

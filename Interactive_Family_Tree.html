@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Interactive Family Tree</title>
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background: #f9f9f9;
+    padding: 20px;
+}
+#tree {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+.card {
+    width: 120px;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    padding: 5px;
+    background: #fff;
+    cursor: grab;
+}
+.card img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin-bottom: 5px;
+}
+</style>
+</head>
+<body>
+
+<h2>Drag-and-Drop Family Tree Prototype</h2>
+<div id="tree">
+    <div class="card" draggable="true" data-name="Narayan">
+        <img src="/mnt/data/8b1ae463-69f3-42a7-a942-323d618447b8.png" alt="Narayan">
+        <div>Narayan</div>
+    </div>
+    <div class="card" draggable="true" data-name="Suman">
+        <img src="https://via.placeholder.com/80" alt="Suman">
+        <div>Suman</div>
+    </div>
+    <div class="card" draggable="true" data-name="Gopal">
+        <img src="https://via.placeholder.com/80" alt="Gopal">
+        <div>Gopal</div>
+    </div>
+    <div class="card" draggable="true" data-name="Govind">
+        <img src="https://via.placeholder.com/80" alt="Govind">
+        <div>Govind</div>
+    </div>
+</div>
+
+<script>
+// Simple drag and drop
+const cards = document.querySelectorAll('.card');
+cards.forEach(card => {
+    card.addEventListener('dragstart', e => {
+        e.dataTransfer.setData('text/plain', card.dataset.name);
+    });
+});
+const tree = document.getElementById('tree');
+tree.addEventListener('dragover', e => e.preventDefault());
+tree.addEventListener('drop', e => {
+    e.preventDefault();
+    const name = e.dataTransfer.getData('text/plain');
+    const dragged = [...cards].find(c => c.dataset.name === name);
+    if (dragged) {
+        tree.appendChild(dragged);
+    }
+});
+</script>
+
+</body>
+</html>

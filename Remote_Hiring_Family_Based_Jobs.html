@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Remote Hiring – Family-Based Jobs</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: #eef2f7;
+            margin: 0;
+            padding: 40px 20px;
+            display: flex;
+            justify-content: center;
+        }
+        .container {
+            max-width: 700px;
+            width: 100%;
+            background: #ffffff;
+            padding: 35px 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        h1, h2 {
+            color: #1c3b6f;
+        }
+        p, ul {
+            color: #333;
+        }
+        ul {
+            padding-left: 20px;
+        }
+        label {
+            font-weight: bold;
+            display: block;
+            margin-top: 15px;
+        }
+        input, textarea, button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 6px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+        button {
+            background-color: #1c3b6f;
+            color: white;
+            border: none;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        button:hover {
+            background-color: #122748;
+        }
+        .chart-container {
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Work From Home – No Interview, Family-Based Hiring</h1>
+        <p><strong>Open Roles:</strong> IT Professionals, HR Executives, Finance Officers, CEO, CTO, MD, CMD</p>
+
+        <h2>Our Mission: Supporting Families Through Work</h2>
+        <ul>
+            <li>100% Remote Jobs with 5-Year Security</li>
+            <li>Daily Payments (even if work is incomplete)</li>
+            <li><strong>Priority:</strong> Men who are the only earning source in the family</li>
+            <li>Also prioritized:
+                <ul>
+                    <li>Women with non-working spouses and dependent children</li>
+                    <li>Families with children under 18</li>
+                    <li>Unemployed individuals</li>
+                </ul>
+            </li>
+            <li>Stipend, home and care loans, and insurance provided</li>
+            <li>No layoffs and no dual-job policy</li>
+        </ul>
+
+        <h2>Apply Now</h2>
+        <!-- Email Form Using mailto -->
+        <form onsubmit="sendMail(); return false;">
+            <label for="name">Full Name:</label>
+            <input type="text" id="name" required>
+
+            <label for="email">Email Address:</label>
+            <input type="email" id="email" required>
+
+            <label for="position">Position Applying For:</label>
+            <input type="text" id="position" required>
+
+            <label for="reason">Tell Us About Your Family Situation:</label>
+            <textarea id="reason" rows="4" required></textarea>
+
+            <button type="submit">Send Application</button>
+        </form>
+
+        <div class="chart-container">
+            <h2>Who We're Prioritizing</h2>
+            <canvas id="priorityChart"></canvas>
+        </div>
+    </div>
+
+    <script>
+        // Chart.js Doughnut Chart
+        const ctx = document.getElementById('priorityChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: [
+                    'Men – Sole Family Earners',
+                    'Women with 1+ Children & Non-Working Husband',
+                    'Families with Children Under 18',
+                    'Unemployed Individuals',
+                    'Others'
+                ],
+                datasets: [{
+                    data: [40, 25, 15, 10, 10],
+                    backgroundColor: ['#4e79a7', '#f28e2b', '#e15759', '#76b7b2', '#bab0ac'],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'bottom'
+                    }
+                }
+            }
+        });
+
+        // JavaScript mailto form handler
+        function sendMail() {
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const position = document.getElementById('position').value;
+            const reason = document.getElementById('reason').value;
+
+            const subject = encodeURIComponent(`Job Application – ${position}`);
+            const body = encodeURIComponent(`Full Name: ${name}\nEmail: ${email}\nPosition: ${position}\n\nFamily Situation:\n${reason}`);
+            const mailtoLink = `mailto:javherikg@zohomail.in=${subject}&body=${body}`;
+
+            window.location.href = mailtoLink;
+        }
+    </script>
+</body>
+</html>

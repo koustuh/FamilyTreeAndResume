@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Family Tree</title>
+
+<!-- ===== CSS Section ===== -->
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f9f9f9;
+    display: flex;
+    justify-content: center;
+    padding: 50px 0;
+}
+
+.tree ul {
+    padding-top: 20px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+}
+
+.tree li {
+    text-align: center;
+    list-style-type: none;
+    position: relative;
+    padding: 20px 5px 0 5px;
+}
+
+/* Connectors */
+.tree li::before, .tree li::after {
+    content: '';
+    position: absolute;
+    top: 0; right: 50%;
+    border-top: 1px solid #ccc;
+    width: 50%;
+    height: 20px;
+}
+.tree li::after {
+    right: auto;
+    left: 50%;
+    border-left: 1px solid #ccc;
+}
+.tree li:only-child::before, .tree li:only-child::after { display: none; }
+.tree li:only-child { padding-top: 0; }
+
+.tree li:first-child::before,
+.tree li:last-child::after { border: 0 none; }
+.tree li:last-child::before { border-right: 1px solid #ccc; }
+
+.tree ul ul::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    border-left: 1px solid #ccc;
+    width: 0;
+    height: 20px;
+}
+
+/* Person boxes */
+.tree li .person {
+    border: 1px solid #ccc;
+    padding: 8px 12px;
+    text-decoration: none;
+    color: #333;
+    font-size: 14px;
+    display: inline-block;
+    border-radius: 6px;
+    background: #f0f8ff;
+    position: relative;
+    min-width: 120px;
+}
+
+.tree li .person img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: block;
+    margin: 0 auto 5px auto;
+}
+
+/* Deceased style */
+.dead {
+    background-color: #ffe5e5 !important;
+    border-color: red !important;
+    color: red !important;
+    font-weight: bold;
+}
+</style>
+</head>
+<body>
+
+<div class="tree" id="familyTree"></div>
+
+<script>
+// Simple dummy image for all members
+const dummyImg = "https://via.placeholder.com/50";
+
+// Family tree data with simple dummy image
+const familyData = {
+    name: "Narayan + Laxumi",
+    dead: true,
+    img: dummyImg,
+    children: [
+        { // 1) Suman
+            name: "Suman + Pratap Singh",
+            img: dummyImg,
+            children: [
+                {
+                    name: "Sulit + Subada",
+                    img: dummyImg,
+                    children: [
+                        { name: "Sanju + Subda", img: dummyImg }
+                    ]
+                }
+            ]
+        },
+        { // 2) Gopal
+            name: "Gopal + Sumati",
+            img: dummyImg,
+            children: [
+                {
+                    name: "Pandu + Joti",
+                    dead: true,
+                    img: dummyImg,
+                    children: [
+                        { name: "Harish", img: dummyImg }
+                    ]
+                },
+                { name: "Kanak", img: dummyImg },
+                { name: "Dhanak + Sadharth", img: dummyImg }
+            ]
+        },
+        { // 3) Govind
+            name: "Govind + Sanjavani",
+            dead: true,
+            img: dummyImg,
+            children: [
+                {
+                    name: "Koustubh + Komal",
+                    img: dummyImg,
+                    children: [{ name: "Liwansh", img: dummyImg }]
+                },
+                {
+                    name: "Bhushan + Bhakti",
+                    img: dummyImg,
+                    children: [
+                        { name: "Parth", img: dummyImg },
+                        { name: "Samruddhi", img: dummyImg }
+                    ]
+                },
+                { name: "Vishal + Travani", img: dummyImg }
+            ]
+        },
+        { // 4) Vijaya
+            name: "Vijaya + Herala",
+            img: dummyImg,
+            children: [
+                { name: "Kannaya", img: dummyImg },
+                { name: "Gouri", img: dummyImg }
+            ]
+        },
+        { // 5) Arun (deceased)
+            name: "Arun",
+            dead: true,
+            img: dummyImg
+        }
+    ]
+};
+
+// Function to generate tree recursively
+function createTree(person) {
+    const li = document.createElement("li");
+    const a = document.createElement("div");
+    a.className = "person";
+    if (person.dead) a.classList.add("dead");
+
+    const img = document.createElement("img");
+    img.src = person.img;
+    img.alt = person.name;
+    a.appendChild(img);
+
+    const text = document.createTextNode(person.name);
+    a.appendChild(text);
+    li.appendChild(a);
+
+    if (person.children && person.children.length > 0) {
+        const ul = document.createElement("ul");
+        person.children.forEach(child => {
+            ul.appendChild(createTree(child));
+        });
+        li.appendChild(ul);
+    }
+
+    return li;
+}
+
+// Render tree
+const treeContainer = document.getElementById("familyTree");
+const rootUl = document.createElement("ul");
+rootUl.appendChild(createTree(familyData));
+treeContainer.appendChild(rootUl);
+</script>
+
+</body>
+</html>

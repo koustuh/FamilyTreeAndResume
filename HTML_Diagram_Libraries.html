@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Top HTML Diagram Libraries with Examples</title>
+
+<!-- Mermaid -->
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+body {
+    font-family: Arial;
+    margin: 30px;
+    background: #f4f6f8;
+}
+.container {
+    max-width: 1200px;
+    margin: auto;
+}
+.card {
+    background: white;
+    padding: 20px;
+    margin-bottom: 25px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+h1 { color: #222; }
+h2 { color: #007acc; }
+canvas { max-width: 500px; margin-top: 10px; }
+</style>
+
+<script>
+mermaid.initialize({ startOnLoad:true });
+</script>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>📘 Blog: HTML Diagram & Graph Libraries (with Examples)</h1>
+
+<!-- 1 Mermaid -->
+<div class="card">
+<h2>1. Mermaid (Flow Diagrams)</h2>
+
+<div class="mermaid">
+flowchart TD
+A --> B --> C
+</div>
+
+<div class="mermaid">
+sequenceDiagram
+User->>App: Login
+</div>
+
+<div class="mermaid">
+stateDiagram-v2
+[*] --> Start
+Start --> End
+</div>
+</div>
+
+<!-- 2 Chart.js -->
+<div class="card">
+<h2>2. Chart.js (Graphs)</h2>
+
+<canvas id="bar"></canvas>
+<canvas id="line"></canvas>
+<canvas id="pie"></canvas>
+
+</div>
+
+<!-- 3 D3.js -->
+<div class="card">
+<h2>3. D3.js</h2>
+
+<p>Example 1: Simple text</p>
+<div id="d3a"></div>
+
+<p>Example 2: Circle</p>
+<svg width="100" height="100">
+<circle cx="50" cy="50" r="40"></circle>
+</svg>
+
+<p>Example 3: Rectangle</p>
+<svg width="100" height="100">
+<rect width="80" height="50"></rect>
+</svg>
+
+</div>
+
+<!-- 4 GoJS -->
+<div class="card">
+<h2>4. GoJS (Diagram)</h2>
+
+<div>Example 1: Node Diagram</div>
+<div>Example 2: Tree</div>
+<div>Example 3: Flow Layout</div>
+
+</div>
+
+<!-- 5 jsPlumb -->
+<div class="card">
+<h2>5. jsPlumb</h2>
+
+<div id="a" style="width:50px;height:50px;background:red;"></div>
+<div id="b" style="width:50px;height:50px;background:blue;margin-top:20px;"></div>
+
+<p>Example 2 & 3: Connect multiple boxes</p>
+
+</div>
+
+<!-- 6 JointJS -->
+<div class="card">
+<h2>6. JointJS</h2>
+
+<p>Example 1: Basic node</p>
+<p>Example 2: Link between nodes</p>
+<p>Example 3: Workflow diagram</p>
+
+</div>
+
+<!-- 7 Cytoscape -->
+<div class="card">
+<h2>7. Cytoscape.js</h2>
+
+<p>Example 1: Graph node</p>
+<p>Example 2: Network</p>
+<p>Example 3: Relationship graph</p>
+
+</div>
+
+<!-- 8 ECharts -->
+<div class="card">
+<h2>8. ECharts</h2>
+
+<p>Example 1: Bar</p>
+<p>Example 2: Pie</p>
+<p>Example 3: Line</p>
+
+</div>
+
+<!-- 9 Vis.js -->
+<div class="card">
+<h2>9. Vis.js</h2>
+
+<p>Example 1: Timeline</p>
+<p>Example 2: Network graph</p>
+<p>Example 3: Nodes</p>
+
+</div>
+
+<!-- 10 Fabric.js -->
+<div class="card">
+<h2>10. Fabric.js</h2>
+
+<canvas id="fabricCanvas" width="300" height="150"></canvas>
+
+<p>Example 2: Draw shapes</p>
+<p>Example 3: Drag objects</p>
+
+</div>
+
+</div>
+
+<script>
+// Chart.js examples
+new Chart(document.getElementById("bar"), {
+ type:'bar',
+ data:{ labels:['A','B'], datasets:[{ data:[10,20]}]}
+});
+
+new Chart(document.getElementById("line"), {
+ type:'line',
+ data:{ labels:['A','B'], datasets:[{ data:[5,15]}]}
+});
+
+new Chart(document.getElementById("pie"), {
+ type:'pie',
+ data:{ labels:['A','B'], datasets:[{ data:[30,70]}]}
+});
+</script>
+
+</body>
+</html>

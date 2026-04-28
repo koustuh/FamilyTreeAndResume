@@ -1,0 +1,335 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Resume — Full Stack .NET Developer</title>
+  <style>
+    :root{
+      --bg: #0f1420;
+      --sidebar: #121826;
+      --card: #0c1624;
+      --pill: #0f2342;
+      --accent: #1f6fe5;      /* blue band & accents */
+      --accent-2:#063e8d;     /* darker blue shadow */
+      --text-strong:#ffffff;
+      --text:#e5ecff;
+      --muted:#a9b4cf;
+      --divider:#20314b;
+      --chip:#162841;
+      --shadow: 0 8px 24px rgba(4,10,25,.45);
+      --radius: 16px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif;
+      background: radial-gradient(1200px 800px at 20% -10%, #1c2a44 0%, #0b1220 45%, #070c16 100%);
+      color:var(--text);
+      line-height:1.55;
+    }
+
+    /* Layout */
+    .page{
+      max-width: 1000px;
+      margin: 24px auto;
+      padding: 16px;
+    }
+    .grid{
+      display:grid;
+      grid-template-columns: 320px 1fr;
+      gap:18px;
+    }
+    @media (max-width: 900px){
+      .grid{ grid-template-columns: 1fr; }
+    }
+
+    /* Sidebar */
+    .sidebar{
+      background:linear-gradient(180deg, var(--sidebar) 0%, #0e1422 100%);
+      border-radius: var(--radius);
+      padding:22px;
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+    }
+    .avatar-wrap{
+      position: relative;
+      background: linear-gradient(135deg, #17305a 0%, #0c1d38 100%);
+      border-radius: 14px;
+      padding: 18px 18px 12px 18px;
+      margin-bottom: 20px;
+    }
+    .avatar{
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      display:block;
+      margin: 4px auto 10px auto;
+      object-fit: cover;
+      border: 6px solid rgba(255,255,255,.08);
+      box-shadow: 0 12px 26px rgba(0,0,0,.45);
+      background:#0b1931;
+    }
+    .pill{
+      display:inline-block;
+      background: var(--pill);
+      color: var(--text);
+      border-radius: 999px;
+      padding: 8px 14px;
+      font-size: 13px;
+      letter-spacing: .2px;
+      border:1px solid rgba(255,255,255,.06);
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,.02);
+    }
+    .about{
+      background: #0c1624;
+      border:1px solid rgba(255,255,255,.06);
+      border-radius: 12px;
+      padding:14px;
+      font-size: 14px;
+      color: var(--text);
+    }
+    .section-title{
+      margin:18px 0 8px 0;
+      font-weight: 700;
+      color: var(--text-strong);
+      font-size: 14px;
+      letter-spacing:.3px;
+      text-transform: uppercase;
+    }
+    .list{
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+    .list li{
+      margin: 8px 0;
+      background: var(--chip);
+      border:1px solid rgba(255,255,255,.06);
+      color: var(--text);
+      padding:8px 12px;
+      border-radius: 12px;
+      display:flex; align-items:center; gap:10px;
+      font-size: 14px;
+    }
+    .bullet{ 
+      width:8px; height:8px; border-radius:50%; 
+      background: linear-gradient(180deg, #3c82ff, #0e4bb8);
+      box-shadow: 0 0 0 4px rgba(31,111,229,.12);
+      flex: 0 0 8px;
+    }
+    .contact-item{
+      display:flex; gap:10px; align-items:center;
+      background: #0c1624;
+      border:1px solid rgba(255,255,255,.06);
+      padding:10px 12px;
+      border-radius: 12px;
+      font-size: 14px;
+      color: var(--text);
+      margin-bottom: 8px;
+      word-break: break-word;
+    }
+    .icon{
+      width: 18px; height: 18px; border-radius:6px;
+      background: linear-gradient(180deg, #2c64d7, #1448a5);
+      display:inline-block;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,.18);
+    }
+
+    /* Main column */
+    .main{
+      position: relative;
+    }
+    .name-band{
+      position: relative;
+      background: linear-gradient(135deg, var(--accent) 0%, #1658c3 60%, #0d46a2 100%);
+      color:#fff;
+      padding: 26px 22px 22px 22px;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+    .name-band::after{
+      content:"";
+      position:absolute; inset:-30% -20% auto auto;
+      width: 340px; height: 340px; border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.16), rgba(255,255,255,0) 60%);
+      transform: translate(40px,-80px);
+      pointer-events:none;
+    }
+    .name{
+      margin:0;
+      font-size: clamp(22px, 3.4vw, 32px);
+      font-weight: 800;
+      letter-spacing: .2px;
+    }
+    .role{
+      margin:6px 0 0 0;
+      font-size: 16px;
+      opacity:.95;
+      font-weight:600;
+    }
+
+    .card{
+      background: linear-gradient(180deg, #0b1627 0%, #0a1422 100%);
+      border:1px solid rgba(255,255,255,.06);
+      border-radius: var(--radius);
+      padding: 18px;
+      margin-top: 18px;
+      box-shadow: var(--shadow);
+    }
+    .card h3{
+      margin:0 0 12px 0;
+      font-size:15px;
+      text-transform: uppercase;
+      letter-spacing:.35px;
+      display:inline-block;
+      background: var(--pill);
+      color: var(--text);
+      padding:8px 14px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.07);
+    }
+    .xp-item + .xp-item{ border-top:1px dashed var(--divider); margin-top:12px; padding-top:12px; }
+    .xp-role{ margin:0; color:var(--text-strong); font-weight:700; }
+    .xp-meta{ margin:4px 0 8px; color:var(--muted); font-size: 13px; }
+    .xp ul{ margin:0 0 0 18px; }
+    .xp li{ margin:6px 0; }
+
+    .edu-item + .edu-item{ border-top:1px dashed var(--divider); margin-top:12px; padding-top:12px; }
+
+    .chips{ display:flex; flex-wrap:wrap; gap:8px; }
+    .chip{
+      background: var(--chip);
+      border:1px solid rgba(255,255,255,.08);
+      color:var(--text);
+      padding:8px 12px;
+      border-radius: 999px;
+      font-size: 13px;
+    }
+
+    /* Accessibility tweaks */
+    a{ color:#9fc1ff; text-decoration:none; }
+    a:hover{ text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <section class="grid">
+      <!-- Sidebar -->
+      <aside class="sidebar" aria-label="Profile and details">
+        <div class="avatar-wrap" aria-hidden="true">
+          <img class="avatar" src="profile.jpg" alt="Profile photo" />
+          <div class="pill">About Me</div>
+        </div>
+
+        <div class="about">
+          <p>
+            A dedicated and diligent Full Stack .NET Developer and QA Python Engineer with solid
+            experience in MVC architecture and SQL database management. Proficient in .NET Core,
+            ASP.NET, and building scalable RESTful APIs.
+          </p>
+        </div>
+
+        <h4 class="section-title">Contact</h4>
+        <div class="contact-item">
+          <span class="icon" aria-hidden="true"></span>
+          <a href="mailto:biljarski.gligor@gmail.com">biljarski.gligor@gmail.com</a>
+        </div>
+        <div class="contact-item">
+          <span class="icon" aria-hidden="true"></span>
+          <a href="tel:+38978478089">+389 78 478 089</a>
+        </div>
+
+        <h4 class="section-title">Language</h4>
+        <ul class="list">
+          <li><span class="bullet"></span> English</li>
+          <li><span class="bullet"></span> Serbian</li>
+          <li><span class="bullet"></span> Bulgarian</li>
+          <li><span class="bullet"></span> Italian (basic)</li>
+        </ul>
+
+        <h4 class="section-title">Skills</h4>
+        <ul class="list">
+          <li><span class="bullet"></span> Full Stack Development</li>
+          <li><span class="bullet"></span> MVC Architecture</li>
+          <li><span class="bullet"></span> Database Management (SQL)</li>
+          <li><span class="bullet"></span> .NET Core</li>
+          <li><span class="bullet"></span> RESTful APIs</li>
+          <li><span class="bullet"></span> Problem Solving</li>
+          <li><span class="bullet"></span> Continuous Learning</li>
+          <li><span class="bullet"></span> WordPress (Elementor, Gutenberg, Gatsby)</li>
+        </ul>
+      </aside>
+
+      <!-- Main column -->
+      <section class="main">
+        <header class="name-band">
+          <h1 class="name">Gligor Biljarski</h1>
+          <p class="role">Full Stack .Net Developer</p>
+        </header>
+
+        <article class="card xp">
+          <h3>Experience</h3>
+
+          <div class="xp-item">
+            <p class="xp-role">Bestway Solutions</p>
+            <p class="xp-meta">1 May 2023 – 3 June 2024</p>
+            <ul>
+              <li>Contributed to an iGaming product coded in .NET and .NET Core.</li>
+              <li>Optimized application performance and implemented scalable solutions to enhance the overall user experience.</li>
+            </ul>
+          </div>
+
+          <div class="xp-item">
+            <p class="xp-role">INNOVA4 — Software Application Developer (Freelance Contract)</p>
+            <p class="xp-meta">Aug 2024 – Dec 2024</p>
+            <ul>
+              <li>Improved efficiency of automated testing leveraging C# with the Romanetix framework.</li>
+              <li>Created test scripts, Python‑based test cases, and scenarios using PyCharm.</li>
+              <li>Handled CI/CD pipelines, troubleshooting, and test management tasks in Salesforce and Jira.</li>
+            </ul>
+          </div>
+
+          <div class="xp-item">
+            <p class="xp-role">iStyle Premium Apple Reseller — Apple‑certified iOS Technician</p>
+            <p class="xp-meta">Dec 2020 – May 2023</p>
+            <ul>
+              <li>Performed diagnostics and repairs for a range of Apple devices.</li>
+              <li>Specialized in troubleshooting and resolving hardware and software issues.</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="card">
+          <h3>Education</h3>
+          <div class="edu-item">
+            <p class="xp-role">European University Skopje — Bachelor of Software Engineering</p>
+            <p class="xp-meta">2009 – 2012</p>
+          </div>
+          <div class="edu-item">
+            <p class="xp-role">Semos Education — Full Stack Developer Academy</p>
+            <p class="xp-meta">Feb 2022 – May 2023</p>
+          </div>
+        </article>
+
+        <article class="card">
+          <h3>Additional Knowledge</h3>
+          <div class="chips">
+            <span class="chip">Angular (basic)</span>
+            <span class="chip">Docker</span>
+            <span class="chip">Kubernetes</span>
+            <span class="chip">Azure DevOps</span>
+            <span class="chip">ASP.NET Core</span>
+            <span class="chip">C#</span>
+            <span class="chip">Git</span>
+            <span class="chip">Microsoft SQL Server</span>
+          </div>
+        </article>
+      </section>
+    </section>
+  </main>
+</body>
+</html>

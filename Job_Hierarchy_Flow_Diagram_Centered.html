@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Hierarchy Flow Diagram</title>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: "default" });
+    </script>
+    <style>
+        body {
+            background-color: white;
+            color: black;
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        .mermaid {
+            text-align: left;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Job Hierarchy Flow Diagram</h2>
+
+<div class="mermaid">
+graph TD;
+    CTO["CTO"]:::cto -->|Manages| SPM["Senior Project Manager"]:::spm
+    SPM -->|Manages| PM["Project Manager"]:::pm
+    PM -->|Manages| TL["Team Lead"]:::tl
+    TL -->|Manages| SE["Senior Engineer"]:::se
+    SE -->|Manages| E["Engineer"]:::e
+    E -->|Manages| JE["Junior Engineer"]:::je
+
+    SPM -->|Manages| HRM["HR Manager"]:::hrm
+    HRM -->|Manages| Tele["Tele Caller"]:::tele
+
+    classDef cto fill:#ff0000,stroke:#800000,stroke-width:2px,color:#ffffff;
+    classDef spm fill:#ff9900,stroke:#804000,stroke-width:2px,color:#ffffff;
+    classDef pm fill:#009900,stroke:#006600,stroke-width:2px,color:#ffffff;
+    classDef tl fill:#0033cc,stroke:#001a66,stroke-width:2px,color:#ffffff;
+    classDef se fill:#9900cc,stroke:#660099,stroke-width:2px,color:#ffffff;
+    classDef e fill:#ff0066,stroke:#800033,stroke-width:2px,color:#ffffff;
+    classDef je fill:#00cccc,stroke:#008080,stroke-width:2px,color:#ffffff;
+    classDef hrm fill:#ff6600,stroke:#b34700,stroke-width:2px,color:#ffffff;
+    classDef tele fill:#666666,stroke:#333333,stroke-width:2px,color:#ffffff;
+</div>
+
+</body>
+</html>
