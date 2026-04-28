@@ -3,58 +3,102 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
     <title>Shark Tank India Judges</title>
     <style>
-        /* Styling for the overall layout of the judges section */
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 20px;
         }
-        /* Container for the judges section */
-        .judges-container {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        .container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+            perspective: 1000px;
         }
-        /* Header styling */
-        h1 {
-            color: #333;
+        .card {
+            width: 200px;
+            height: 300px;
+            position: relative;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+            cursor: pointer;
         }
-        /* Individual judge section styling */
-        .judge {
-            margin-bottom: 20px;
+        .card-flip {
+            transform: rotateY(180deg);
+        }
+        .card .front, .card .back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border: 2px solid #000;
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 20px;
+        }
+        .card .front {
+            background: white;
+        }
+        .card .back {
+            background: #f8f8f8;
+            transform: rotateY(180deg);
+            flex-direction: column;
+            justify-content: flex-start;
             padding: 10px;
-            border-bottom: 1px solid #ccc;
         }
-        /* Judge name styling */
-        .judge h2 {
-            margin: 0;
-            color: #007bff;
-        }
-        /* Judge bio styling */
-        .judge p {
-            color: #555;
-        }
+        .card-symbol { font-size: 50px; }
+        .judge-name { font-weight: bold; }
+        .judge-details { margin-top: 10px; }
     </style>
 </head>
 <body>
-    <!-- Main container for the judges' information -->
-    <div class="judges-container">
-        <h1>Judges of Shark Tank India</h1>
-        <!-- Judge 1 details -->
-        <div class="judge">
-            <h2>Judge Name 1</h2>
-            <p>This is a short bio for Judge Name 1. This section explains their background and experience.</p>
+    <h1>Judges of Shark Tank India</h1>
+    <div class="container">
+        <div class="card" onclick="this.classList.toggle('card-flip');">
+            <div class="front">
+                <div class="judge-name">Aman Gupta</div>
+                <div class="card-symbol">♠</div>
+            </div>
+            <div class="back">
+                <div class="judge-name">Aman Gupta</div>
+                <div class="judge-details">Seasons: 1, Role: Judge, Net Worth: $100 million</div>
+            </div>
         </div>
-        <!-- Judge 2 details -->
-        <div class="judge">
-            <h2>Judge Name 2</h2>
-            <p>This is a short bio for Judge Name 2. This section explains their background and experience.</p>
+        <div class="card" onclick="this.classList.toggle('card-flip');">
+            <div class="front">
+                <div class="judge-name">Peyush Bansal</div>
+                <div class="card-symbol">♠</div>
+            </div>
+            <div class="back">
+                <div class="judge-name">Peyush Bansal</div>
+                <div class="judge-details">Seasons: 1, Role: Judge, Net Worth: $80 million</div>
+            </div>
         </div>
-        <!-- Add more judges as necessary -->
+        <div class="card" onclick="this.classList.toggle('card-flip');">
+            <div class="front">
+                <div class="judge-name">Namita Thapar</div>
+                <div class="card-symbol">♠</div>
+            </div>
+            <div class="back">
+                <div class="judge-name">Namita Thapar</div>
+                <div class="judge-details">Seasons: 1, Role: Judge, Net Worth: $60 million</div>
+            </div>
+        </div>
+        <div class="card" onclick="this.classList.toggle('card-flip');">
+            <div class="front">
+                <div class="judge-name">Ashneer Grover</div>
+                <div class="card-symbol">♠</div>
+            </div>
+            <div class="back">
+                <div class="judge-name">Ashneer Grover</div>
+                <div class="judge-details">Seasons: 1, Role: Judge, Net Worth: $90 million</div>
+            </div>
+        </div>
     </div>
+    <script>
+        // JavaScript for the flip animation (if needed)
+    </script>
 </body>
 </html>
